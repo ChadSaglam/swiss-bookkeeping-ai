@@ -24,11 +24,13 @@ with training data, so real-world accuracy will be lower.
 Held-out-vendor test, 74 rows (about +/-6 points of uncertainty). Details and code:
 https://github.com/ChadSaglam/efficiency-lab
 
-| Variant | Accuracy | Median ms | Peak memory |
-|---|---|---|---|
-| fp16 | 93.2% | 71 | 1.13 GB |
-| 8-bit | 93.2% | 54 | 0.71 GB |
-| 4-bit | 71.6% | 61 | 0.44 GB |
+| Variant | Accuracy | Peak memory |
+|---|---|---|
+| fp16 | 93.2% | 1.13 GB |
+| 8-bit | 93.2% | 0.71 GB |
+| 4-bit | 71.6% | 0.44 GB |
+
+Latency (54-71 ms per line) varied by about 20 ms between runs, so no speed ranking is claimed.
 
 ## Robustness: not safe against prompt steering
 
