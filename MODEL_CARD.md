@@ -9,6 +9,8 @@ tags: [accounting, switzerland, lora, mlx, synthetic-data]
 
 # Swiss Bookkeeping Account Suggester
 
+Code and training scripts: https://github.com/ChadSaglam/swiss-bookkeeping-ai
+
 LoRA fine-tune of Qwen2.5-0.5B-Instruct. Given a Swiss SME invoice line, it replies with one 4-digit account number from a six-account test chart.
 
 > Educational model trained on **synthetic** data. Not accounting or tax advice.
