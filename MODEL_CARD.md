@@ -19,7 +19,8 @@ LoRA fine-tune of Qwen2.5-0.5B-Instruct. Given a Swiss SME invoice line, it repl
 | Model | Seen-vendor test (56 rows) | Held-out-vendor test (74 rows) |
 |---|---|---|
 | Base Qwen2.5-0.5B-Instruct | 23.2% | 16.2% |
-| + LoRA | 96.4% (full-data run) | **94.6%** |
+| + LoRA adapter (unfused) | 96.4% (full-data run) | 94.6% |
+| + LoRA fused (released weights) | n/a | **93.2%** |
 
 The released weights are the held-out-vendor run: 12 vendors never appear in training. Invoice phrases still overlap with training data, so real-world accuracy will be lower.
 
