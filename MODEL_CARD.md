@@ -70,6 +70,16 @@ print(tok.decode(out.squeeze()[n:], skip_special_tokens=True))
 - Method: LoRA (rank 8, 16 layers), learning rate 1e-5, batch size 4, 600 iterations
 - Framework: mlx-lm on Apple Silicon, then fused into the base weights
 
+## Robustness: not safe against prompt steering
+
+Words in the invoice text act as content, not as text to ignore. In a local test
+(bookkeeping-mcp-agent), 5 of 56 test rows (not used for training) were wrong without changes.
+After appending short suffixes such as "(advertising)", "- Werbung" or "pour publicité",
+152 of 352 cases were wrong (43%) and 85 of them moved to 6600 Advertising. The 352 cases come
+from about 44 base lines and are not independent. Treat every output as a draft for a human to
+review, and do not book automatically.
+Details: https://github.com/ChadSaglam/bookkeeping-mcp-agent/blob/main/REPORT.md
+
 ## Limits
 - Six accounts from a simplified test chart, not the official KMU-Kontenrahmen
 - Template-generated, clean invoice text; real invoices are messier
