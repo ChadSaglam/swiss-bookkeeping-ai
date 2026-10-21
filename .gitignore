@@ -1,0 +1,7 @@
+adapters*/
+fused/
+data/*.jsonl
+data_hard/
+__pycache__/
+.DS_Store
+.env
