@@ -74,6 +74,8 @@ print(tok.decode(out.squeeze()[n:], skip_special_tokens=True))
 
 On 36 hand-written invoice lines with vendors and wording that the training-data generator does not use, the 8-bit MLX variant scored 17/36 (47.2%, 95% interval 32-63%), against 93.2% on the held-out-vendor test. The set is hard by design: the author wrote it with the model's weak spots in mind, and its labels were not independently reviewed. Treat it as a lower bound for messy real invoices. Data: ood_test.csv in https://huggingface.co/datasets/ChadSaglam/swiss-sme-bookkeeping-dataset
 
+For reference, prompted qwen2.5:7b (Ollama, no fine-tuning, chart of accounts in the prompt, temperature 0) scored 27/36 (75.0%, 95% interval 59-86%) on the same 36 lines using the text only. With the CHF amount appended it scored 30/36 (83.3%); the amounts in this set are independent of the account, so that gap is within noise. Both settings were fixed before the run and the prompt was not changed afterwards. The set was written against the 0.5B model's weak spots and its labels are unreviewed, so read this as a rough reference, not a ranking. The two models also differ in size and in whether they see the chart of accounts.
+
 ## Robustness: not safe against prompt steering
 
 Words in the invoice text act as content, not as text to ignore. In a local test
