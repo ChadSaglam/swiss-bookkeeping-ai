@@ -70,6 +70,10 @@ print(tok.decode(out.squeeze()[n:], skip_special_tokens=True))
 - Method: LoRA (rank 8, 16 layers), learning rate 1e-5, batch size 4, 600 iterations
 - Framework: mlx-lm on Apple Silicon, then fused into the base weights
 
+## Out-of-phrase check
+
+On 36 hand-written invoice lines with vendors and wording that the training-data generator does not use, the 8-bit MLX variant scored 17/36 (47.2%, 95% interval 32-63%), against 93.2% on the held-out-vendor test. The set is hard by design: the author wrote it with the model's weak spots in mind, and its labels were not independently reviewed. Treat it as a lower bound for messy real invoices. Data: ood_test.csv in https://huggingface.co/datasets/ChadSaglam/swiss-sme-bookkeeping-dataset
+
 ## Robustness: not safe against prompt steering
 
 Words in the invoice text act as content, not as text to ignore. In a local test
