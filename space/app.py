@@ -37,8 +37,20 @@ demo = gr.Interface(
     [gr.Textbox(label="Invoice line", placeholder="Swisscom Mobile Abo März"),
      gr.Number(label="Amount (CHF)", value=89.5), gr.Dropdown([8.1, 3.8, 2.6, 0], value=8.1, label="VAT %")],
     gr.Label(num_top_classes=3, label="Suggested accounts"),
-    title="📒 Swiss Bookkeeping Account Suggester",
-    description="Synthetic data demo. Not accounting or tax advice.",
+    title="Swiss Bookkeeping Account Suggester",
+    description=(
+        "Enter an invoice line to compare the three highest-scoring accounts. "
+        "[Dataset](https://huggingface.co/datasets/ChadSaglam/swiss-sme-bookkeeping-dataset) · "
+        "[Model](https://huggingface.co/ChadSaglam/swiss-bookkeeping-qwen-lora) · "
+        "[Code](https://github.com/ChadSaglam/swiss-bookkeeping-ai)\n\n"
+        "Educational demo trained on synthetic data. Scores are not calibrated probabilities. "
+        "Review every suggestion; this is not accounting or tax advice."
+    ),
+    examples=[
+        ["Swisscom Mobile Abo März", 89.5, 8.1],
+        ["Adobe Team Plan", 149.0, 8.1],
+        ["Webflow Inserat Zeitung", 1200.0, 8.1],
+    ],
     flagging_mode="never",
 )
 demo.launch()
