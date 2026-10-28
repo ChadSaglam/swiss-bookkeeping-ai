@@ -9,7 +9,7 @@ SYSTEM = ("You are a Swiss SME bookkeeper. Reply with ONLY the 4-digit account n
           + "\n".join(f"{k} {v}" for k, v in sorted(CHART.items())))
 
 tok = AutoTokenizer.from_pretrained(MODEL_ID)
-model = AutoModelForCausalLM.from_pretrained(MODEL_ID, torch_dtype=torch.float32).eval()
+model = AutoModelForCausalLM.from_pretrained(MODEL_ID, dtype=torch.float32).eval()
 
 
 def score(prompt_ids, answer):
@@ -53,4 +53,6 @@ demo = gr.Interface(
     ],
     flagging_mode="never",
 )
-demo.launch()
+
+if __name__ == "__main__":
+    demo.launch()
