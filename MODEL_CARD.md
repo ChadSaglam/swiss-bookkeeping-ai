@@ -15,7 +15,7 @@ A LoRA fine-tune of Qwen2.5-0.5B-Instruct that maps a Swiss SME invoice line to 
 
 ## Resources
 
-- [Interactive demo](https://huggingface.co/spaces/ChadSaglam/swiss-bookkeeping-ai)
+- [Gradio demo source](https://github.com/ChadSaglam/swiss-bookkeeping-ai/tree/main/space)
 - [Dataset and validation scripts](https://huggingface.co/datasets/ChadSaglam/swiss-sme-bookkeeping-dataset)
 - [Training and evaluation code](https://github.com/ChadSaglam/swiss-bookkeeping-ai)
 - [8-bit MLX variant](https://huggingface.co/ChadSaglam/swiss-bookkeeping-qwen-lora-mlx-8bit)
@@ -33,7 +33,15 @@ The released weights come from the held-out-vendor run. Twelve vendors were excl
 
 ## Demo
 
-The [Gradio demo](https://huggingface.co/spaces/ChadSaglam/swiss-bookkeeping-ai) returns the three highest-scoring accounts for an invoice line, CHF amount and VAT rate. The scores are relative model scores, not calibrated probabilities.
+The [Gradio demo source](https://github.com/ChadSaglam/swiss-bookkeeping-ai/tree/main/space) returns the three highest-scoring accounts for an invoice line, CHF amount and VAT rate. The scores are relative model scores, not calibrated probabilities.
+
+Run it locally from the repository root:
+
+```bash
+cd space
+pip install -r requirements.txt
+python app.py
+```
 
 ## Prompt format
 

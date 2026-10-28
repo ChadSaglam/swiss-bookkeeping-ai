@@ -4,7 +4,7 @@ Training and evaluation code for a small account-suggestion model built with Qwe
 
 ## Resources
 
-- [Interactive demo](https://huggingface.co/spaces/ChadSaglam/swiss-bookkeeping-ai)
+- [Gradio demo source](https://github.com/ChadSaglam/swiss-bookkeeping-ai/tree/main/space)
 - [Fused model](https://huggingface.co/ChadSaglam/swiss-bookkeeping-qwen-lora)
 - [8-bit MLX model](https://huggingface.co/ChadSaglam/swiss-bookkeeping-qwen-lora-mlx-8bit)
 - [Dataset and validation scripts](https://huggingface.co/datasets/ChadSaglam/swiss-sme-bookkeeping-dataset)
