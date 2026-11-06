@@ -118,7 +118,7 @@ The separate OOD set contains 36 hand-written lines with unseen vendors and word
 - A prompted `qwen2.5:7b` reference scored **27/36 (75.0%; 95% interval 59–86%)** using text only and **30/36 (83.3%)** when the CHF amount was appended.
 - The 7B model used Ollama, temperature 0 and the account chart in its prompt. It was not fine-tuned. These settings make it a rough reference, not a like-for-like ranking.
 
-The OOD labels were initially drafted with AI assistance and reviewed by the author. One label was corrected from 6500 to 6510 after the first evaluation; this does not change the 0.5B score. The corrected 7B text-only score is 28/36 (77.8%). One additional label remains debatable. The dataset card and `label_review.txt` document the review.
+The OOD labels were initially drafted automatically and then reviewed by the author. One label was corrected from 6500 to 6510 after the first evaluation; this does not change the 0.5B score. The corrected 7B text-only score is 28/36 (77.8%). One additional label remains debatable. The dataset card and `label_review.txt` document the review.
 
 ## Robustness
 

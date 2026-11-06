@@ -22,6 +22,17 @@ All training data is synthetic. The six-account chart is a simplified test chart
 
 The released weights come from the held-out-vendor run. Twelve vendors were excluded from training, but invoice phrases can still overlap. Real-world accuracy will be lower.
 
+### Top-3 accuracy (ranked scoring)
+
+`eval/eval_topk.py` scores all six accounts by the log-probability of their tokens after the prompt, the same ranking the demo uses, and reports top-1 and top-3 on the 74-row held-out-vendor test.
+
+| Model | Top-1 | Top-3 |
+|---|---:|---:|
+| Base Qwen2.5-0.5B-Instruct | 24.3% (18/74) | 50.0% (37/74) |
+| LoRA fused, released weights | 94.6% (70/74) | **98.6% (73/74)** |
+
+With six accounts, a random ranking puts the correct one in the top 3 half of the time, so the base model's top-3 score is at chance level. Ranked top-1 differs slightly from the greedy-generation numbers above because the two methods decode differently.
+
 ### Efficiency variants
 
 Measured on the same 74-row held-out-vendor test:
