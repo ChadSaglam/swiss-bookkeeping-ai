@@ -1,6 +1,19 @@
-import torch
+import os
+
 import gradio as gr
+import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+try:
+    import spaces
+
+    gpu = spaces.GPU(duration=30)
+except ImportError:
+    def gpu(fn):
+        return fn
+
+ZERO_GPU = os.environ.get("SPACES_ZERO_GPU") is not None
+DEVICE = "cuda" if ZERO_GPU or torch.cuda.is_available() else "cpu"
 
 MODEL_ID = "ChadSaglam/swiss-bookkeeping-qwen-lora"
 CHART = {"6510": "Telephone and internet", "6570": "IT and software", "6200": "Vehicle expenses",
@@ -9,11 +22,11 @@ SYSTEM = ("You are a Swiss SME bookkeeper. Reply with ONLY the 4-digit account n
           + "\n".join(f"{k} {v}" for k, v in sorted(CHART.items())))
 
 tok = AutoTokenizer.from_pretrained(MODEL_ID)
-model = AutoModelForCausalLM.from_pretrained(MODEL_ID, dtype=torch.float32).eval()
+model = AutoModelForCausalLM.from_pretrained(MODEL_ID, dtype=torch.float32).eval().to(DEVICE)
 
 
 def score(prompt_ids, answer):
-    ans_ids = tok(answer, add_special_tokens=False, return_tensors="pt").input_ids
+    ans_ids = tok(answer, add_special_tokens=False, return_tensors="pt").input_ids.to(prompt_ids.device)
     ids = torch.cat([prompt_ids, ans_ids], dim=1)
     with torch.no_grad():
         logp = model(ids).logits.log_softmax(-1)
@@ -21,13 +34,14 @@ def score(prompt_ids, answer):
     return sum(logp[0, n - 1 + i, ans_ids[0, i]].item() for i in range(ans_ids.shape[1]))
 
 
+@gpu
 def suggest(text, amount, vat):
     if not text or not text.strip():
         raise gr.Error("Please type an invoice line.")
     user = f"Invoice line: {text} | CHF {amount} | VAT {vat}%"
     msgs = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}]
     prompt = tok.apply_chat_template(msgs, add_generation_prompt=True, tokenize=False)
-    pids = tok(prompt, return_tensors="pt").input_ids
+    pids = tok(prompt, return_tensors="pt").input_ids.to(DEVICE)
     scores = torch.tensor([score(pids, a) for a in CHART]).softmax(0)
     return {f"{a} {CHART[a]}": float(s) for a, s in zip(CHART, scores)}
 
